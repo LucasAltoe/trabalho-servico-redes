@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Usuários e Perfis</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Sistema de Usuários e Perfis</h1>
+    <p>Grupo 1 — Serviços de Redes para Internet</p>
+  </header>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!--              ABA DE PERFIS              -->
+    <!-- ═══════════════════════════════════════ -->
+    <section>
+      <div class="cabecalho-secao">
+        <h2>Perfis</h2>
+        <button onclick="abrirModal('modal-perfil')">+ Novo Perfil</button>
+      </div>
+
+      <table id="tabela-perfis">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="4">Carregando...</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!--             ABA DE USUÁRIOS             -->
+    <!-- ═══════════════════════════════════════ -->
+    <section>
+      <div class="cabecalho-secao">
+        <h2>Usuários</h2>
+        <button onclick="abrirModal('modal-usuario')">+ Novo Usuário</button>
+      </div>
+
+      <table id="tabela-usuarios">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Perfil</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="5">Carregando...</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--           MODAL — CADASTRO DE PERFIL        -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="modal-perfil" class="modal-fundo" style="display:none">
+    <div class="modal-caixa">
+      <h3 id="titulo-modal-perfil">Novo Perfil</h3>
+
+      <input type="hidden" id="perfil-id" />
+
+      <label>Nome do perfil</label>
+      <input type="text" id="perfil-nome" placeholder="Ex: Administrador" />
+
+      <label>Descrição</label>
+      <input type="text" id="perfil-descricao" placeholder="Ex: Acesso total ao sistema" />
+
+      <div class="modal-botoes">
+        <button class="btn-secundario" onclick="fecharModal('modal-perfil')">Cancelar</button>
+        <button onclick="salvarPerfil()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!--          MODAL — CADASTRO DE USUÁRIO        -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div id="modal-usuario" class="modal-fundo" style="display:none">
+    <div class="modal-caixa">
+      <h3 id="titulo-modal-usuario">Novo Usuário</h3>
+
+      <input type="hidden" id="usuario-id" />
+
+      <label>Nome completo</label>
+      <input type="text" id="usuario-nome" placeholder="Ex: Maria Silva" />
+
+      <label>E-mail</label>
+      <input type="email" id="usuario-email" placeholder="maria@email.com" />
+
+      <label>Senha</label>
+      <input type="password" id="usuario-senha" placeholder="••••••••" />
+
+      <label>Perfil</label>
+      <select id="usuario-perfil">
+        <option value="">— Sem perfil —</option>
+      </select>
+
+      <div class="modal-botoes">
+        <button class="btn-secundario" onclick="fecharModal('modal-usuario')">Cancelar</button>
+        <button onclick="salvarUsuario()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
