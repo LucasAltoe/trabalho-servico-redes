@@ -1,8 +1,5 @@
-# backend/requirements.txt
-# Dependências do projeto Python
-
-fastapi==0.111.0          # Framework web para criar a API
-uvicorn[standard]==0.29.0 # Servidor que roda o FastAPI
-sqlalchemy==2.0.30        # ORM para falar com o banco de dados
-psycopg2-binary==2.9.9    # Driver do PostgreSQL para Python
-pydantic==2.7.1           # Validação de dados (usado pelo FastAPI)
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+sqlalchemy==2.0.30
+psycopg2-binary==2.9.9
+pydantic==2.7.1

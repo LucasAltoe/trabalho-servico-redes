@@ -1,13 +1,5 @@
-// script.js
-// Toda comunicação com a API passa por /api (o NGINX redireciona para o FastAPI)
-
 const API = '/api';
 
-// ═══════════════════════════════════════════════
-//                   PERFIS
-// ═══════════════════════════════════════════════
-
-// Busca todos os perfis e preenche a tabela
 async function carregarPerfis() {
   const resp = await fetch(`${API}/perfis/`);
   const perfis = await resp.json();
@@ -34,11 +26,9 @@ async function carregarPerfis() {
     `;
   });
 
-  // Atualiza o <select> dentro do modal de usuário com os perfis disponíveis
   atualizarSelectPerfis(perfis);
 }
 
-// Preenche o <select> de perfis no modal de usuário
 function atualizarSelectPerfis(perfis) {
   const select = document.getElementById('usuario-perfil');
   select.innerHTML = '<option value="">— Sem perfil —</option>';
@@ -47,7 +37,6 @@ function atualizarSelectPerfis(perfis) {
   });
 }
 
-// Salva ou atualiza um perfil
 async function salvarPerfil() {
   const id   = document.getElementById('perfil-id').value;
   const nome = document.getElementById('perfil-nome').value.trim();
@@ -61,14 +50,12 @@ async function salvarPerfil() {
   const corpo = { nome, descricao: desc || null };
 
   if (id) {
-    // PUT — atualiza perfil existente
     await fetch(`${API}/perfis/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(corpo),
     });
   } else {
-    // POST — cria novo perfil
     await fetch(`${API}/perfis/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -80,7 +67,6 @@ async function salvarPerfil() {
   carregarPerfis();
 }
 
-// Preenche o modal com os dados do perfil para edição
 function editarPerfil(id, nome, descricao) {
   abrirModal('modal-perfil');
   document.getElementById('titulo-modal-perfil').textContent = 'Editar Perfil';
@@ -89,19 +75,12 @@ function editarPerfil(id, nome, descricao) {
   document.getElementById('perfil-descricao').value = descricao;
 }
 
-// Deleta um perfil após confirmação
 async function deletarPerfil(id) {
   if (!confirm('Excluir este perfil?')) return;
   await fetch(`${API}/perfis/${id}`, { method: 'DELETE' });
   carregarPerfis();
 }
 
-
-// ═══════════════════════════════════════════════
-//                  USUÁRIOS
-// ═══════════════════════════════════════════════
-
-// Busca todos os usuários e preenche a tabela
 async function carregarUsuarios() {
   const resp     = await fetch(`${API}/usuarios/`);
   const usuarios = await resp.json();
@@ -130,7 +109,6 @@ async function carregarUsuarios() {
   });
 }
 
-// Salva ou atualiza um usuário
 async function salvarUsuario() {
   const id       = document.getElementById('usuario-id').value;
   const nome     = document.getElementById('usuario-nome').value.trim();
@@ -157,14 +135,12 @@ async function salvarUsuario() {
   if (senha) corpo.senha = senha;
 
   if (id) {
-    // PUT — atualiza usuário existente
     await fetch(`${API}/usuarios/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(corpo),
     });
   } else {
-    // POST — cria novo usuário (senha obrigatória)
     await fetch(`${API}/usuarios/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -176,7 +152,6 @@ async function salvarUsuario() {
   carregarUsuarios();
 }
 
-// Preenche o modal com os dados do usuário para edição
 function editarUsuario(id, nome, email, perfilId) {
   abrirModal('modal-usuario');
   document.getElementById('titulo-modal-usuario').textContent = 'Editar Usuário';
@@ -187,20 +162,13 @@ function editarUsuario(id, nome, email, perfilId) {
   document.getElementById('usuario-perfil').value = perfilId || '';
 }
 
-// Deleta um usuário após confirmação
 async function deletarUsuario(id) {
   if (!confirm('Excluir este usuário?')) return;
   await fetch(`${API}/usuarios/${id}`, { method: 'DELETE' });
   carregarUsuarios();
 }
 
-
-// ═══════════════════════════════════════════════
-//               CONTROLE DE MODAIS
-// ═══════════════════════════════════════════════
-
 function abrirModal(id) {
-  // Limpa os campos ao abrir para criação
   if (id === 'modal-perfil') {
     document.getElementById('titulo-modal-perfil').textContent = 'Novo Perfil';
     document.getElementById('perfil-id').value        = '';
@@ -222,18 +190,11 @@ function fecharModal(id) {
   document.getElementById(id).style.display = 'none';
 }
 
-// Fecha o modal ao clicar fora da caixa
 document.querySelectorAll('.modal-fundo').forEach(fundo => {
   fundo.addEventListener('click', function(e) {
     if (e.target === this) this.style.display = 'none';
   });
 });
 
-
-// ═══════════════════════════════════════════════
-//                INICIALIZAÇÃO
-// ═══════════════════════════════════════════════
-
-// Carrega os dados ao abrir a página
 carregarPerfis();
 carregarUsuarios();
